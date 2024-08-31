@@ -11,3 +11,20 @@ This project is the exact java port of Schnorr signature from python code at:
 https://github.com/sipa/bips/tree/bip-schnorr/bip-schnorr
 
 This project is a fork of MikeTW's work which can be found at: https://github.com/miketwk/bip-schnorr-java
+
+## Todo
+
+Some of the things being worked on:
+
+- [ ] Maven integration
+    * This is so that it can be used as a dependency and via JitPack.io
+- [ ] Java crypto integration
+    * This is to integrate this into the Java Crypto Framework so that it
+    can be used via there.
+    * There are several requirements for this, as shown below:
+    - [ ] `SignatureSpi` implementation
+    - [ ] `PublicKey` implementation
+    - [ ] `PrivateKey` implementation
+- [ ] Automated testing
+
+      
