@@ -16,7 +16,7 @@ This project is a fork of MikeTW's work which can be found at: https://github.co
 
 Some of the things being worked on:
 
-- [ ] Maven integration
+- [x] Maven integration
     * This is so that it can be used as a dependency and via JitPack.io
 - [ ] Java crypto integration
     * This is to integrate this into the Java Crypto Framework so that it
@@ -25,7 +25,7 @@ Some of the things being worked on:
     - [ ] `SignatureSpi` implementation
     - [ ] `PublicKey` implementation
     - [ ] `PrivateKey` implementation
-- [ ] Automated testing
+- [x] Automated testing
 
 ## Usage
 
