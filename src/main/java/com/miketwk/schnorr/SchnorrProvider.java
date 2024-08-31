@@ -20,7 +20,7 @@ public class SchnorrProvider extends Provider
 	{
 		 // TODO: What should this be set to?
 		 // TODO: What should this be set to?
-		super("SchnorrProvider", "", "");
+		super("SchnorrProvider", 0.0, "");
 
 		// Add our custom SignatureSpi
 		put("Signature.Schnorr", SchnorrSignature.class.getName());
