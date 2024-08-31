@@ -3,15 +3,21 @@ package com.miketwk.schnorr;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.math.BigInteger;
-import java.util.Scanner;
 
 import org.junit.jupiter.api.Test;
 
 /**
  * Test suite for the schnorr implementation
  * 
+ * This test suite was broken up from the
+ * original one into several separate tests
+ * to make it more modular and see where
+ * failures are occurring using automated
+ * tools.
+ * 
  * @see Schnorr
  * @author michaeltan
+ * @author Tristan Brice Velloza Kildaire (deavmi)
  */
 public class SchnorrTest
 {
@@ -37,23 +43,226 @@ public class SchnorrTest
 //	""";
 	
 	@Test
-	public void test()
+	public void test_1()
 	{
+		String test = "1,0000000000000000000000000000000000000000000000000000000000000001,0279BE667EF9DCBBAC55A06295CE870B07029BFCDB2DCE28D959F2815B16F81798,0000000000000000000000000000000000000000000000000000000000000000,787A848E71043D280C50470E8E1532B2DD5D20EE912A45DBDD2BD1DFBF187EF67031A98831859DC34DFFEEDDA86831842CCD0079E1F92AF177F7F22CC1DCED05,TRUE,";
+		assertTrue(doTest(test));
+	}
+	
+	@Test
+	public void test_2()
+	{
+		String test = "2,B7E151628AED2A6ABF7158809CF4F3C762E7160F38B4DA56A784D9045190CFEF,02DFF1D77F2A671C5F36183726DB2341BE58FEAE1DA2DECED843240F7B502BA659,243F6A8885A308D313198A2E03707344A4093822299F31D0082EFA98EC4E6C89,2A298DACAE57395A15D0795DDBFD1DCB564DA82B0F269BC70A74F8220429BA1D1E51A22CCEC35599B8F266912281F8365FFC2D035A230434A1A64DC59F7013FD,TRUE,";
+		assertTrue(doTest(test));
+	}
+	
+	@Test
+	public void test_3()
+	{
+		String test = "3,C90FDAA22168C234C4C6628B80DC1CD129024E088A67CC74020BBEA63B14E5C7,03FAC2114C2FBB091527EB7C64ECB11F8021CB45E8E7809D3C0938E4B8C0E5F84B,5E2D58D8B3BCDF1ABADEC7829054F90DDA9805AAB56C77333024B9D0A508B75C,00DA9B08172A9B6F0466A2DEFD817F2D7AB437E0D253CB5395A963866B3574BE00880371D01766935B92D2AB4CD5C8A2A5837EC57FED7660773A05F0DE142380,TRUE,";
+		assertTrue(doTest(test));
+	}
+	
+	@Test
+	public void test_4()
+	{
+		String test = "4,,03DEFDEA4CDB677750A420FEE807EACF21EB9898AE79B9768766E4FAA04A2D4A34,4DF3C3F68FCC83B27E9D42C90431A72499F17875C81A599B566C9889B9696703,00000000000000000000003B78CE563F89A0ED9414F5AA28AD0D96D6795F9C6302A8DC32E64E86A333F20EF56EAC9BA30B7246D6D25E22ADB8C6BE1AEB08D49D,TRUE,";
+		assertTrue(doTest(test));
+	}
+	
+	@Test
+	public void test_5()
+	{
+		String test = "5,,031B84C5567B126440995D3ED5AABA0565D71E1834604819FF9C17F5E9D5DD078F,0000000000000000000000000000000000000000000000000000000000000000,52818579ACA59767E3291D91B76B637BEF062083284992F2D95F564CA6CB4E3530B1DA849C8E8304ADC0CFE870660334B3CFC18E825EF1DB34CFAE3DFC5D8187,TRUE,\"test fails if jacobi symbol of x(R) instead of y(R) is used\"";
+		assertTrue(doTest(test));
+	}
+	
+	@Test
+	public void test_6()
+	{
+		String test = "6,,03FAC2114C2FBB091527EB7C64ECB11F8021CB45E8E7809D3C0938E4B8C0E5F84B,FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF,570DD4CA83D4E6317B8EE6BAE83467A1BF419D0767122DE409394414B05080DCE9EE5F237CBD108EABAE1E37759AE47F8E4203DA3532EB28DB860F33D62D49BD,TRUE,\"test fails if msg is reduced modulo p or n\"";
+		assertTrue(doTest(test));
+	}
+	
+	@Test
+	public void test_7()
+	{
+		String test = "7,,03EEFDEA4CDB677750A420FEE807EACF21EB9898AE79B9768766E4FAA04A2D4A34,4DF3C3F68FCC83B27E9D42C90431A72499F17875C81A599B566C9889B9696703,00000000000000000000003B78CE563F89A0ED9414F5AA28AD0D96D6795F9C6302A8DC32E64E86A333F20EF56EAC9BA30B7246D6D25E22ADB8C6BE1AEB08D49D,FALSE,\"public key not on the curve\"";
+		assertTrue(doTest(test));
+	}
+	
+	@Test
+	public void test_8()
+	{
+		String test = "8,,02DFF1D77F2A671C5F36183726DB2341BE58FEAE1DA2DECED843240F7B502BA659,243F6A8885A308D313198A2E03707344A4093822299F31D0082EFA98EC4E6C89,2A298DACAE57395A15D0795DDBFD1DCB564DA82B0F269BC70A74F8220429BA1DFA16AEE06609280A19B67A24E1977E4697712B5FD2943914ECD5F730901B4AB7,FALSE,\"incorrect R residuosity\"";
+		assertTrue(doTest(test));
+	}
+	
+	@Test
+	public void test_9()
+	{
+		String test = "9,,03FAC2114C2FBB091527EB7C64ECB11F8021CB45E8E7809D3C0938E4B8C0E5F84B,5E2D58D8B3BCDF1ABADEC7829054F90DDA9805AAB56C77333024B9D0A508B75C,00DA9B08172A9B6F0466A2DEFD817F2D7AB437E0D253CB5395A963866B3574BED092F9D860F1776A1F7412AD8A1EB50DACCC222BC8C0E26B2056DF2F273EFDEC,FALSE,\"negated message\"";
+		assertTrue(doTest(test));
+	}
+	
+	@Test
+	public void test_10()
+	{
+		String test = "10,,0279BE667EF9DCBBAC55A06295CE870B07029BFCDB2DCE28D959F2815B16F81798,0000000000000000000000000000000000000000000000000000000000000000,787A848E71043D280C50470E8E1532B2DD5D20EE912A45DBDD2BD1DFBF187EF68FCE5677CE7A623CB20011225797CE7A8DE1DC6CCD4F754A47DA6C600E59543C,FALSE,\"negated s value\"";
+		assertTrue(doTest(test));
+	}
+	
+	@Test
+	public void test_11()
+	{
+		String test = "11,,03DFF1D77F2A671C5F36183726DB2341BE58FEAE1DA2DECED843240F7B502BA659,243F6A8885A308D313198A2E03707344A4093822299F31D0082EFA98EC4E6C89,2A298DACAE57395A15D0795DDBFD1DCB564DA82B0F269BC70A74F8220429BA1D1E51A22CCEC35599B8F266912281F8365FFC2D035A230434A1A64DC59F7013FD,FALSE,\"negated public key\"";
+		assertTrue(doTest(test));
+	}
+	
+	@Test
+	public void test_12()
+	{
+		String test = "12,,02DFF1D77F2A671C5F36183726DB2341BE58FEAE1DA2DECED843240F7B502BA659,243F6A8885A308D313198A2E03707344A4093822299F31D0082EFA98EC4E6C89,00000000000000000000000000000000000000000000000000000000000000009E9D01AF988B5CEDCE47221BFA9B222721F3FA408915444A4B489021DB55775F,FALSE,\"sG - eP is infinite. Test fails in single verification if jacobi(y(inf)) is defined as 1 and x(inf) as 0\"";
+		assertTrue(doTest(test));
+	}
+	
+	@Test
+	public void test_13()
+	{
+		String test = "13,,02DFF1D77F2A671C5F36183726DB2341BE58FEAE1DA2DECED843240F7B502BA659,243F6A8885A308D313198A2E03707344A4093822299F31D0082EFA98EC4E6C89,0000000000000000000000000000000000000000000000000000000000000001D37DDF0254351836D84B1BD6A795FD5D523048F298C4214D187FE4892947F728,FALSE,\"sG - eP is infinite. Test fails in single verification if jacobi(y(inf)) is defined as 1 and x(inf) as 1\"";
+		assertTrue(doTest(test));
+	}
+	
+	@Test
+	public void test_14()
+	{
+		String test = "14,,02DFF1D77F2A671C5F36183726DB2341BE58FEAE1DA2DECED843240F7B502BA659,243F6A8885A308D313198A2E03707344A4093822299F31D0082EFA98EC4E6C89,4A298DACAE57395A15D0795DDBFD1DCB564DA82B0F269BC70A74F8220429BA1D1E51A22CCEC35599B8F266912281F8365FFC2D035A230434A1A64DC59F7013FD,FALSE,\"sig[0:32] is not an X coordinate on the curve\"";
+		assertTrue(doTest(test));
+	}
+	
+	@Test
+	public void test_15()
+	{
+		String test = "15,,02DFF1D77F2A671C5F36183726DB2341BE58FEAE1DA2DECED843240F7B502BA659,243F6A8885A308D313198A2E03707344A4093822299F31D0082EFA98EC4E6C89,FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC2F1E51A22CCEC35599B8F266912281F8365FFC2D035A230434A1A64DC59F7013FD,FALSE,\"sig[0:32] is equal to field size\"";
+		assertTrue(doTest(test));
+	}
+	
+	@Test
+	public void test_16()
+	{
+		String test = "16,,02DFF1D77F2A671C5F36183726DB2341BE58FEAE1DA2DECED843240F7B502BA659,243F6A8885A308D313198A2E03707344A4093822299F31D0082EFA98EC4E6C89,2A298DACAE57395A15D0795DDBFD1DCB564DA82B0F269BC70A74F8220429BA1DFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141,FALSE,\"sig[32:64] is equal to curve order\"";
+		assertTrue(doTest(test));
+	}
+	
+	
+	private static class TestData
+	{
+		public final String index;
+		public final String secKey;
+		public final byte[] pubKey;
+		public final byte[] msg;
+		public final String sig;
+		public final boolean result;
+		public final String comment;
+
+		private TestData
+		(
+			final String index,
+			final String secKey,
+			final byte[] pubKey,
+			final byte[] msg,
+			final String sig,
+			final boolean result,
+			final String comment
+		)
+		{
+			this.index = index;
+			this.secKey = secKey;
+			this.pubKey = pubKey;
+			this.msg = msg;
+			this.sig = sig;
+			this.result = result;
+			this.comment = comment;
+		}
+		
+		public static TestData fromRow(final String row)
+		{
+			int pos=row.indexOf(",");
+			
+			String index=row.substring(0, pos).trim();
+			String seckey=row.substring(pos+1, pos=row.indexOf(",", pos+1)).trim();
+			byte[] pubkey=Schnorr.hexStringToByteArray(row.substring(pos+1, pos=row.indexOf(",", pos+1)).trim());
+			byte[] msg=Schnorr.hexStringToByteArray(row.substring(pos+1, pos=row.indexOf(",", pos+1)).trim());
+			String sig=row.substring(pos+1, pos=row.indexOf(",", pos+1)).trim();
+			boolean result="TRUE".equals(row.substring(pos+1, pos=row.indexOf(",", pos+1)).trim());
+			String comment=row.indexOf(",", pos+1)==-1 ? "" : row.substring(pos+1, pos=row.indexOf(",", pos+1)).trim();
+			
+			return new TestData(index, seckey, pubkey, msg, sig, result, comment);
+		}
+	}
+	
+	private static boolean doTest(final String row)
+	{
+		boolean all_passed=true;
+		
+		TestData td = TestData.fromRow(row);
+		String index=td.index;
+		String seckey=td.secKey;
+		byte[] pubkey=td.pubKey;
+		byte[] msg=td.msg;
+		String sig=td.sig;
+		boolean result=td.result;
+		String comment=td.comment;
+		
+		
+		System.out.println("\nTest vector "+index+":");
+		if(!"".equals(seckey)) {
+			BigInteger seckeyNum=new BigInteger(seckey,16);
+			String sig_actual=Schnorr.bytesToHex(Schnorr.schnorr_sign(msg, seckeyNum));
+			if(sig.equals(sig_actual))
+				System.out.println(" * Passed signing test.");
+			else {
+				System.out.println(" * Failed signing test.");
+				System.out.println("   Excepted signature:"+ sig);
+				System.out.println("   Actual signature:"+ sig_actual);
+                all_passed = false;
+			}
+		}
+		boolean result_actual = Schnorr.schnorr_verify(msg, pubkey, Schnorr.hexStringToByteArray(sig));
+		if(result==result_actual)
+			System.out.println(" * Passed verification test.");
+		else {
+			System.out.println(" * Failed verification test.");
+			System.out.println("   Excepted verification result:"+ result);
+			System.out.println("     Actual verification result:"+ result_actual);
+            if(!"".equals(comment))
+            	System.out.println("   Comment:"+ comment);
+            all_passed = false;
+		}
+		
+		return all_passed;
+	}
+	
+//	@Test
+//	public void test() throws FileNotFoundException
+//	{
 //		boolean all_passed=true;
-//		@SuppressWarnings("resource")
-//		Scanner scanner=new Scanner(testPayload);
+//		Scanner scanner=null;
+//		scanner=new Scanner(new File("test-vectors.csv"));
 //		scanner.nextLine(); //heading
 //		while(scanner.hasNextLine()) {
 //			String row=scanner.nextLine();
 //			int pos=row.indexOf(",");
 //			
-//			String index=row.substring(0, pos).trim();
-//			String seckey=row.substring(pos+1, pos=row.indexOf(",", pos+1)).trim();
-//			byte[] pubkey=Schnorr.hexStringToByteArray(row.substring(pos+1, pos=row.indexOf(",", pos+1)).trim());
-//			byte[] msg=Schnorr.hexStringToByteArray(row.substring(pos+1, pos=row.indexOf(",", pos+1)).trim());
-//			String sig=row.substring(pos+1, pos=row.indexOf(",", pos+1)).trim();
-//			boolean result="TRUE".equals(row.substring(pos+1, pos=row.indexOf(",", pos+1)).trim());
-//			String comment=row.indexOf(",", pos+1)==-1 ? "" : row.substring(pos+1, pos=row.indexOf(",", pos+1)).trim();
+//			TestData td = TestData.fromRow(row);
+//			
+//			String index=td.index;
+//			String seckey=td.secKey;
+//			byte[] pubkey=td.pubKey;
+//			byte[] msg=td.msg;
+//			String sig=td.sig;
+//			boolean result=td.result;
+//			String comment=td.comment;
 //			
 //			System.out.println("\nTest vector "+index+":");
 //			if(!"".equals(seckey)) {
@@ -82,13 +291,10 @@ public class SchnorrTest
 //		}
 //		
 //	    if(all_passed)
-//	    {
 //	    	System.out.println("All test vectors passed.");
-//	    }
 //	    else
-//	    {
 //	    	System.out.println("Some test vectors failed.");
-//	    }
+//		
 //	    assertTrue(all_passed);
-	}
+//	}
 }
