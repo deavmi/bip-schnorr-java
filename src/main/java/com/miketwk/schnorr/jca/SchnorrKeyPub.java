@@ -1,7 +1,9 @@
-package com.miketwk.schnorr;
+package com.miketwk.schnorr.jca;
 
 import java.security.Key;
 import java.security.PublicKey;
+
+import com.miketwk.schnorr.core.Schnorr;
 
 public class SchnorrKeyPub implements PublicKey
 {
@@ -31,21 +33,23 @@ public class SchnorrKeyPub implements PublicKey
 	public String getAlgorithm()
 	{
 		// TODO: What should this return?
-		return "SCHNORR-KEY";
+		return "SCHNORR";
 	}
 
 	@Override
 	public String getFormat()
 	{
-		// TODO: What should this return?
-				return "SCHNORR-KEY";
+		return null;
 	}
 
 	@Override
 	public byte[] getEncoded()
 	{
-		// TODO: Pretty sure key-specific is how you get the bytes but screw
-		// ... it, making this method do that
+		return null;
+	}
+	
+	public byte[] keyBytes()
+	{
 		byte[] tmp = new byte[33];
 		System.arraycopy(this.kb, 0, tmp, 0, 33);
 		return tmp;

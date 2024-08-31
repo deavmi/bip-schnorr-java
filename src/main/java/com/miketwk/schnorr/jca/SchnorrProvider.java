@@ -1,4 +1,4 @@
-package com.miketwk.schnorr;
+package com.miketwk.schnorr.jca;
 
 import java.security.Provider;
 import java.security.SignatureSpi;

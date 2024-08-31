@@ -6,6 +6,8 @@ import java.math.BigInteger;
 
 import org.junit.jupiter.api.Test;
 
+import com.miketwk.schnorr.core.Schnorr;
+
 /**
  * Test suite for the schnorr implementation
  * 

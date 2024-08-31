@@ -1,10 +1,10 @@
-package com.miketwk.schnorr;
+package com.miketwk.schnorr.misc;
 
 import java.util.List;
 
 public class Utils
 {
-	public static byte[] fromListToBYtes(final List<Byte> bytes)
+	public static byte[] fromListToBytes(final List<Byte> bytes)
 	{
 		byte[] b = new byte[bytes.size()];
 		

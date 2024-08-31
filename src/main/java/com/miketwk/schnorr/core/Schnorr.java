@@ -1,4 +1,4 @@
-package com.miketwk.schnorr;
+package com.miketwk.schnorr.core;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;

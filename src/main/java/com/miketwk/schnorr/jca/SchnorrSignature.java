@@ -1,4 +1,4 @@
-package com.miketwk.schnorr;
+package com.miketwk.schnorr.jca;
 
 import java.security.InvalidKeyException;
 import java.security.InvalidParameterException;
@@ -8,6 +8,9 @@ import java.security.SignatureException;
 import java.security.SignatureSpi;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.miketwk.schnorr.core.Schnorr;
+import com.miketwk.schnorr.misc.Utils;
 
 /**
  * Schnorr signature SPI implementation
@@ -56,7 +59,12 @@ public final class SchnorrSignature extends SignatureSpi
 	{
 		freshInit();
 		
-		// TODO: Set private key
+		if(!(privateKey instanceof SchnorrKeyPriv))
+		{
+			throw new InvalidKeyException("Only SchnorrKeyPriv is supported as private keys");
+		}
+		
+		this.priv = (SchnorrKeyPriv)privateKey;
 	}
 	
 	@Override
@@ -111,10 +119,12 @@ public final class SchnorrSignature extends SignatureSpi
 		{
 			throw new SignatureException("The engine has not yet initialized");
 		}
+		else if(this.priv == null)
+		{
+			throw new SignatureException("The engine has not been initialized with a private key");
+		}
 		
-		// TODO: Check if key set etc.
-		// TODO Auto-generated method stub
-		return null;
+		return Schnorr.schnorr_sign(Utils.fromListToBytes(this.bytes), this.priv.bigBoy());
 	}
 
 	@Override
@@ -131,8 +141,8 @@ public final class SchnorrSignature extends SignatureSpi
 		
 		return Schnorr.schnorr_verify
 		(
-			Utils.fromListToBYtes(this.bytes),
-			this.pub.getEncoded(),
+			Utils.fromListToBytes(this.bytes),
+			this.pub.keyBytes(),
 			sigBytes
 		);
 	}
