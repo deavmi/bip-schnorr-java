@@ -27,4 +27,25 @@ Some of the things being worked on:
     - [ ] `PrivateKey` implementation
 - [ ] Automated testing
 
-      
+## Usage
+
+Firstly add the JitPack repository:
+
+```xml
+<repositories>
+   <repository>
+    <id>jitpack.io</id>
+    <url>https://www.jitpack.io</url>
+   </repository>
+</repositories>
+```
+
+Now add the dependency (**note**, currently the master branch builds are your best bet):
+
+```xml
+<dependency>
+   <groupId>com.github.deavmi</groupId>
+   <artifactId>bip-schnorr-java</artifactId>
+   <version>-SNAPSHOT</version>
+</dependency>
+```
