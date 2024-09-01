@@ -49,6 +49,6 @@ Now add the dependency (**note**, currently the master branch builds are your be
 <dependency>
    <groupId>com.github.deavmi</groupId>
    <artifactId>bip-schnorr-java</artifactId>
-   <version>-SNAPSHOT</version>
+   <version>0.0.1</version>
 </dependency>
 ```
