@@ -36,7 +36,7 @@ public final class SchnorrKeyPriv implements PrivateKey
 		return null;
 	}
 	
-	public BigInteger bigBoy()
+	public BigInteger getAsBigInteger()
 	{
 		return key;
 	}

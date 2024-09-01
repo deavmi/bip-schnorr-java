@@ -123,7 +123,7 @@ public final class SchnorrSignature extends SignatureSpi
 			throw new SignatureException("The engine has not been initialized with a private key");
 		}
 		
-		return Schnorr.schnorr_sign(Utils.fromListToBytes(this.bytes), this.priv.bigBoy());
+		return Schnorr.schnorr_sign(Utils.fromListToBytes(this.bytes), this.priv.getAsBigInteger());
 	}
 
 	@Override
