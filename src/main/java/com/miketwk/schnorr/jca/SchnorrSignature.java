@@ -17,7 +17,7 @@ import com.miketwk.schnorr.misc.Utils;
  * 
  * This class makes use of the routines
  * found in {@link Schnorr} - all of
- * the hardwork is there
+ * the hardwork is there.
  * 
  * @see SignatureSpi
  * @author Tristan Brice Velloza Kildaire (deavmi)
@@ -109,7 +109,6 @@ public final class SchnorrSignature extends SignatureSpi
 		{
 			throw new SignatureException("Invalid boundries");
 		}
-		
 	}
 
 	@Override
@@ -150,15 +149,12 @@ public final class SchnorrSignature extends SignatureSpi
 	@Override
 	protected void engineSetParameter(String param, Object value) throws InvalidParameterException
 	{
-		// TODO Auto-generated method stub
-		
+		throw new InvalidParameterException("Setting of parameters not allowed");
 	}
 
 	@Override
 	protected Object engineGetParameter(String param) throws InvalidParameterException
 	{
-		// TODO Auto-generated method stub
-		return null;
+		throw new InvalidParameterException("Retrieval of parameters not allowed");
 	}
-	
 }

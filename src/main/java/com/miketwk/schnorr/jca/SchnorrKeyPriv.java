@@ -3,7 +3,12 @@ package com.miketwk.schnorr.jca;
 import java.math.BigInteger;
 import java.security.PrivateKey;
 
-public class SchnorrKeyPriv implements PrivateKey
+/**
+ * A Schnorr private key
+ * 
+ * @author Tristan Brice Velloza Kildaire (deavmi)
+ */
+public final class SchnorrKeyPriv implements PrivateKey
 {
 	private final BigInteger key;
 	

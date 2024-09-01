@@ -1,11 +1,15 @@
 package com.miketwk.schnorr.jca;
 
-import java.security.Key;
 import java.security.PublicKey;
 
 import com.miketwk.schnorr.core.Schnorr;
 
-public class SchnorrKeyPub implements PublicKey
+/**
+ * A Schnorr public key
+ * 
+ * @author Tristan Brice Velloza Kildaire (deavmi)
+ */
+public final class SchnorrKeyPub implements PublicKey
 {
 	private byte[] kb;
 	
