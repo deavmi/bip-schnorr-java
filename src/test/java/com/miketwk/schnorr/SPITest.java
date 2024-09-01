@@ -1,5 +1,6 @@
 package com.miketwk.schnorr;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -70,5 +71,19 @@ public class SPITest
 		// the message was signed by the given
 		// public key
 		assertTrue(s.verify(sig));
+	}
+	
+	@Test
+	public void signatureVerify_failure() throws NoSuchAlgorithmException, InvalidKeyException, SignatureException
+	{
+		PublicKey pub = new SchnorrKeyPub("03EEFDEA4CDB677750A420FEE807EACF21EB9898AE79B9768766E4FAA04A2D4A34");
+		byte[] msg = Schnorr.hexStringToByteArray("4DF3C3F68FCC83B27E9D42C90431A72499F17875C81A599B566C9889B9696703");
+		Signature s = Signature.getInstance("Schnorr", provider);
+		s.initVerify(pub);
+		s.update(msg);
+		
+		byte[] sig = Schnorr.hexStringToByteArray("00000000000000000000003B78CE563F89A0ED9414F5AA28AD0D96D6795F9C6302A8DC32E64E86A333F20EF56EAC9BA30B7246D6D25E22ADB8C6BE1AEB08D49D");
+		
+		assertFalse(s.verify(sig));
 	}
 }
