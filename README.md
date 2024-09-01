@@ -18,7 +18,7 @@ Some of the things being worked on:
 
 - [x] Maven integration
     * This is so that it can be used as a dependency and via JitPack.io
-- [ ] Java crypto integration
+- [x] Java crypto integration
     * This is to integrate this into the Java Crypto Framework so that it
     can be used via there.
     * There are several requirements for this, as shown below:
