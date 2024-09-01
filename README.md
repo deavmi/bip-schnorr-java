@@ -25,6 +25,9 @@ Some of the things being worked on:
     - [x] `SignatureSpi` implementation
     - [x] `PublicKey` implementation
     - [x] `PrivateKey` implementation
+    - [ ] `KeyFactorySpi` implementation
+      * **Help wanted!** - it would be nice if someone could help
+      with an algorithmn for _generating_ key-pairs
 - [x] Automated testing
 
 ## Usage
@@ -46,6 +49,6 @@ Now add the dependency (**note**, currently the master branch builds are your be
 <dependency>
    <groupId>com.github.deavmi</groupId>
    <artifactId>bip-schnorr-java</artifactId>
-   <version>-SNAPSHOT</version>
+   <version>0.0.1</version>
 </dependency>
 ```
