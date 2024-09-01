@@ -22,9 +22,9 @@ Some of the things being worked on:
     * This is to integrate this into the Java Crypto Framework so that it
     can be used via there.
     * There are several requirements for this, as shown below:
-    - [ ] `SignatureSpi` implementation
-    - [ ] `PublicKey` implementation
-    - [ ] `PrivateKey` implementation
+    - [x] `SignatureSpi` implementation
+    - [x] `PublicKey` implementation
+    - [x] `PrivateKey` implementation
 - [x] Automated testing
 
 ## Usage
