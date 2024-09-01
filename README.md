@@ -25,6 +25,7 @@ Some of the things being worked on:
     - [x] `SignatureSpi` implementation
     - [x] `PublicKey` implementation
     - [x] `PrivateKey` implementation
+    - [ ] `KeyFactorySpi` implementation
 - [x] Automated testing
 
 ## Usage
