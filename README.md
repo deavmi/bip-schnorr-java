@@ -26,6 +26,8 @@ Some of the things being worked on:
     - [x] `PublicKey` implementation
     - [x] `PrivateKey` implementation
     - [ ] `KeyFactorySpi` implementation
+      * **Help wanted!** - it would be nice if someone could help
+      with an algorithmn for _generating_ key-pairs
 - [x] Automated testing
 
 ## Usage
